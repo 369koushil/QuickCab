@@ -1,6 +1,6 @@
 import { useState,createContext } from "react"
 
-const CaptainDataContext=createContext();
+export const CaptainDataContext=createContext();
 const CaptainContext = ({children}) => {
     const [captain,setCaptain]=useState(null);
     const [isLoading,setIsLoading]=useState(false);
@@ -24,4 +24,4 @@ const CaptainContext = ({children}) => {
   )
 }
 
-export default CaptainContext
+export default CaptainContext;

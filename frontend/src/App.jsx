@@ -12,9 +12,9 @@ function App() {
     <>
      <Routes>
       <Route path='/' element={<Start/>} />
-      <Route path='/home' element={<UserProtectedWrapper>Home</UserProtectedWrapper>}/>
-      <Route path='/userlogin' element={<UserLogin/>} />
-      <Route path='/Usersignup' element={<UserSignup/>} />
+      <Route path='/home' element={<UserProtectedWrapper><Home/></UserProtectedWrapper>}/>
+      <Route path='/login' element={<UserLogin/>} />
+      <Route path='/signup' element={<UserSignup/>} />
       <Route path='/captain-login' element={<Captainlogin/>} />
       <Route path='/captain-signup' element={<CaptainSignup/>} />
      </Routes>

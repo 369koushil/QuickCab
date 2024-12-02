@@ -14,8 +14,8 @@ module.exports.captainRegister=async(fullname,email,password,vehicle)=>{
         vehicle:{
             color:vehicle.color,
             vehicleType:vehicle.vehicleType,
-            plateNo:vehicle.plateNo,
-            capacity:vehicle.capacity
+            vehicleNo:vehicle.vehicleNo,
+            vehicleCapacity:vehicle.vehicleCapacity
         }
     }
        )

@@ -49,7 +49,7 @@ const captainSchema=new mongoose.Schema({
             require:true,
             min:[3,'req 3 char plateNo']
         },
-        capacity:{
+        vehicleCapacity:{
             type:Number,
             require:true,
             min:[1,'atleast one capacity req']
