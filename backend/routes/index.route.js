@@ -5,6 +5,6 @@ const userRoute = require("./user.route");
 
 const captainRoute = require("./captain.route");
 
-router.use("/user", userRoute);
-router.use("/captain", captainRoute);
+router.use("/users", userRoute);
+router.use("/captains", captainRoute);
 module.exports = router;
