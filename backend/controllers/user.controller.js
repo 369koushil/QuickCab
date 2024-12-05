@@ -48,7 +48,7 @@ module.exports.getUserProfile=async(req,res)=>{
 
     const user=req.user;
     // console.log(user)
-    return res.json(user)
+    return res.status(200).json(user)
 }
 
 module.exports.logoutUser=async(req,res)=>{
