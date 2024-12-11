@@ -1,6 +1,6 @@
 import React from "react";
 
-const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
+const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel,fare,setVehicleType }) => {
   return (
     <div className="flex flex-col gap-6 pt-4 rounded-lg ">
       <div
@@ -18,6 +18,7 @@ const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
         <div
           onClick={() => {
             setConfirmRidePanel(true);
+            setVehicleType('car')
           }}
           className="flex hover:border-black  px-2 py-2 rounded-xl  border-solid border-2  justify-around bg-gray-200"
         >
@@ -42,7 +43,7 @@ const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
             </p>
           </div>
           <h2 className="flex items-center justify-end text-xl font-semibold">
-            193.20rs
+            {"₹"+fare['car']}
           </h2>
         </div>
         <div>
@@ -50,6 +51,7 @@ const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
             <div
               onClick={() => {
                 setConfirmRidePanel(true);
+                setVehicleType('moto')
               }}
               className="flex items-center"
             >
@@ -73,7 +75,7 @@ const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
               </p>
             </div>
             <h2 className="flex items-center justify-end text-xl font-semibold">
-              90.20rs
+              {"₹"+fare['moto']}
             </h2>
           </div>
         </div>
@@ -82,6 +84,7 @@ const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
             <div
               onClick={() => {
                 setConfirmRidePanel(true);
+                setVehicleType('auto')
               }}
               className="flex items-center"
             >
@@ -105,7 +108,7 @@ const VehicleSuggestion = ({ setVehiclePanel, setConfirmRidePanel }) => {
               </p>
             </div>
             <h2 className="flex items-center text-xl justify-end font-semibold">
-              110.20rs
+            {"₹"+fare['auto']}
             </h2>
           </div>
         </div>
