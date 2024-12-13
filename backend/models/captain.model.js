@@ -25,7 +25,7 @@ const captainSchema=new mongoose.Schema({
         required: true,
         min: [6, 'minimum length required 6char']
     },
-    sockedId: {
+    socketId: {
         type: String
     },
     status:{

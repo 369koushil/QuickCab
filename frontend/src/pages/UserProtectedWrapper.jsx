@@ -12,12 +12,13 @@ const UserProtectedWrapper = ({children}) => {
       if(!token){
         navigate('/login')
       }
-       axios.get(`${import.meta.env.VITE_API_URL}/users/getuserprofile`,{
+       axios.get(`${import.meta.env.VITE_BASE_URL}/users/getuserprofile`,{
         headers:{
           Authorization:`Bearer ${token}`
         }
       }).then(res=>{
         if(res.status==200){
+          console.log(res.data)
           setUser(res.data);
           setloading(false);
         }

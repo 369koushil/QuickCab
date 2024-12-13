@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect,useContext } from "react";
 import { use } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -9,6 +9,8 @@ import ConfirmRide from "../components/ConfirmRide";
 import WaitingForDriver from "../components/WaitingForDriver";
 import LookingForDriver from "../components/LookingForDriver";
 import axios from'axios';
+import UserContext, { UserDataContext } from "../context/UserContext";
+import { SocketContext } from "../context/SocketContext";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -28,7 +30,12 @@ const Home = () => {
   const confirmRideRef = useRef(null);
   const waitingForDriverRef=useRef(null);
   const lookingForDriverRef=useRef(null);
+const {sendMsg,receiveMsg} =useContext(SocketContext);
+const {user}=useContext(UserDataContext)
 
+useEffect(()=>{
+  sendMsg("join",{userId:user._id,userType:"user"})
+},[user])
   const createRide=()=>{
     return {
       pickup,

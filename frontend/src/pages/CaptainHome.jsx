@@ -9,6 +9,7 @@ import { useEffect, useContext } from 'react'
 // import { SocketContext } from '../context/SocketContext'
 import { CaptainDataContext } from  '../context/CaptainContext'
 import axios from 'axios'
+import { SocketContext } from '../context/SocketContext'
 
 const CaptainHome = () => {
 
@@ -19,50 +20,18 @@ const CaptainHome = () => {
     const confirmRidePopupPanelRef = useRef(null)
     const [ ride, setRide ] = useState(null)
 
-    // const { socket } = useContext(SocketContext)
+    const { sendMsg } = useContext(SocketContext)
     const { captain } = useContext(CaptainDataContext)
 
-    // useEffect(() => {
-    //     socket.emit('join', {
-    //         userId: captain._id,
-    //         userType: 'captain'
-    //     })
-    //     const updateLocation = () => {
-    //         if (navigator.geolocation) {
-    //             navigator.geolocation.getCurrentPosition(position => {
-
-    //                 socket.emit('update-location-captain', {
-    //                     userId: captain._id,
-    //                     location: {
-    //                         ltd: position.coords.latitude,
-    //                         lng: position.coords.longitude
-    //                     }
-    //                 })
-    //             })
-    //         }
-    //     }
-
-    //     const locationInterval = setInterval(updateLocation, 10000)
-    //     updateLocation()
-
-    //     // return () => clearInterval(locationInterval)
-    // }, [])
-
-    // socket.on('new-ride', (data) => {
-
-    //     setRide(data)
-    //     setRidePopupPanel(true)
-
-    // })
+    useEffect(()=>{
+        console.log(captain)
+      sendMsg("join",{userId:captain._id,userType:"captain"})
+    },[captain])
 
     async function confirmRide() {
-
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`, {
-
             rideId: ride._id,
             captainId: captain._id,
-
-
         }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

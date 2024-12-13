@@ -12,14 +12,14 @@ const CaptainProtectedWrapper = ({children}) => {
       if(!token){
         navigate('/captain-login')
       }
-
-      axios.get(`${import.meta.env.VITE_API_URL}/captains/getcaptainprofile`,{
+      axios.get(`${import.meta.env.VITE_BASE_URL}/captains/getcaptainprofile`,{
         headers:{
           Authorization:`Bearer ${token}`
         }
       }).then(res=>{
         if(res.status==200){
-          setCaptain(res.data);
+        
+          setCaptain(res.data.captain);
     setLoading(false);
         }
       }).catch(err=>{
