@@ -1,4 +1,5 @@
 import { createContext, useEffect } from "react";
+import { data } from "react-router-dom";
 import { io } from "socket.io-client";
 
 const baseurl = "http://localhost:4000";
@@ -29,6 +30,8 @@ const SocketProvider = (props) => {
   };
 
   const receiveMsg = (event, callback) => {
+    console.log(event)
+    console.log(callback)
     socket.on(event, callback);
   };
 

@@ -55,12 +55,12 @@ const captainSchema=new mongoose.Schema({
             min:[1,'atleast one capacity req']
         }
     },
-    location:{
-        latitude:{
-            type:String,
+    location: {
+        ltd: {
+            type: Number,
         },
-        longitude:{
-            type:String,
+        lng: {
+            type: Number,
         }
     }
 })
