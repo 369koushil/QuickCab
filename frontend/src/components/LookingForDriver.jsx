@@ -3,9 +3,9 @@ import React from 'react'
 const LookingForDriver = (props) => {
     return (
         <div className='pt-6'>
-            {/* <h5 className='p-1 pt-4 text-center w-full absolute top-0' onClick={() => {
+            <h5 className='p-1 pt-4 text-center w-full absolute top-0' onClick={() => {
                 props.setLookingForDriverPanel(false)
-            }}><i className="text-3xl text-black ri-arrow-down-wide-line"></i></h5> */}
+            }}><i className="text-3xl text-black ri-arrow-down-wide-line"></i></h5>
             <h3 className='text-2xl font-semibold mb-5'>Looking for a Driver</h3>
 
             <div className='flex gap-2 justify-between flex-col items-center'>

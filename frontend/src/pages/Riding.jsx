@@ -3,17 +3,17 @@ import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { useNavigate } from 'react-router-dom'
-// import LiveTracking from '../components/LiveTracking'
+ import LiveTrackingUser from '../components/LiveTrackingUser'
 
 const Riding = () => {
     const location = useLocation()
     const { ride } = location.state || {}
-    // const { socket } = useContext(SocketContext)
+    const { receiveMsg} = useContext(SocketContext)
     const navigate = useNavigate()
 
-    // socket.on("ride-ended", () => {
-    //     navigate('/home')
-    // })
+    receiveMsg("ride-ended", () => {
+        navigate('/home')
+    })
 
 
     return (
@@ -22,7 +22,7 @@ const Riding = () => {
                 <i className="text-lg font-medium ri-home-5-line"></i>
             </Link>
             <div className='h-1/2'>
-                {/* <LiveTracking /> */}
+               <LiveTrackingUser/>
 LiveTracking
             </div>
             <div className='h-1/2 p-4'>

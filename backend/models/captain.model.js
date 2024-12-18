@@ -62,6 +62,17 @@ const captainSchema=new mongoose.Schema({
         lng: {
             type: Number,
         }
+    },
+    stats:{
+        totalRides:{
+            type:Number
+        },
+        hoursTravelled:{
+            type:Number
+        },
+        amount:{
+            type:Number
+        }
     }
 })
 

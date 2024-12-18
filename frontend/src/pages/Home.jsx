@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect,useContext } from "react";
-import { use } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
@@ -12,18 +12,21 @@ import axios from'axios';
 import UserContext, { UserDataContext } from "../context/UserContext";
 import { SocketContext } from "../context/SocketContext";
 
+
 const Home = () => {
   const [pickup, setPickup] = useState("");
   const [dest, setDest] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
-  // const[waitingForDriverPanel,setWaitingForDriverPanel]=useState(false);
+  const[waitingForDriverPanel,setWaitingForDriverPanel]=useState(false);
   const[lookingForDriverPanel,setLookingForDriverPanel]=useState(false);
   const [suggestions,setSuggestions]=useState([]);
   const [activeField,setActiveField]=useState(null);
   const [fare,setFare]=useState([0,0,0]);
   const [vehicleType,setVehicleType]=useState(null);
+  const [ vehicleFound, setVehicleFound ] = useState(false)
+  const[ride,setRide]=useState(null);
   const panelRef = useRef(null);
   const chevronRef = useRef(null);
   const vehiclesugRef = useRef(null);
@@ -32,17 +35,45 @@ const Home = () => {
   const lookingForDriverRef=useRef(null);
 const {sendMsg,receiveMsg} =useContext(SocketContext);
 const {user}=useContext(UserDataContext)
+const navigate=useNavigate();
 
 useEffect(()=>{
+  console.log(user)
   sendMsg("join",{userId:user._id,userType:"user"})
 },[user])
+
+
+receiveMsg('ride-confirmed', ride => {
+  console.log(ride)
+  setVehicleFound(false)
+  setWaitingForDriverPanel(true)
+  setRide(ride)
+})
+
+receiveMsg('ride-started', ride => {
+  console.log("ride")
+  setWaitingForDriverPanel(false)
+  navigate('/riding', { state: { ride } }) 
+})
+
   const createRide=()=>{
-    return {
-      pickup,
-      destination:dest,
-      fare:`${fare[vehicleType]}`,
-      vehicleType
-    }
+    
+    axios.post(
+      'http://localhost:4000/api/v1/rides/create',
+      {
+        userId: user._id,
+        pickup: pickup,
+        destination: dest,
+        vehicleType: vehicleType
+      },
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem('token')
+        }
+      }
+    ).then(response=>{
+      console.log(response.data)
+    })
   }
 
   const submitHabdler = (e) => {
@@ -139,20 +170,20 @@ useEffect(()=>{
     [confirmRidePanel]
   );
 
-  // useGSAP(
-  //   function () {
-  //     if (waitingForDriverPanel) {
-  //       gsap.to(waitingForDriverRef.current, {
-  //         transform: "translateY(0)",
-  //       });
-  //     } else {
-  //       gsap.to(waitingForDriverRef.current, {
-  //         transform: "translateY(100%)",
-  //       });
-  //     }
-  //   },
-  //   [waitingForDriverPanel]
-  // );
+  useGSAP(
+    function () {
+      if (waitingForDriverPanel) {
+        gsap.to(waitingForDriverRef.current, {
+          transform: "translateY(0)",
+        });
+      } else {
+        gsap.to(waitingForDriverRef.current, {
+          transform: "translateY(100%)",
+        });
+      }
+    },
+    [waitingForDriverPanel]
+  );
 
   useGSAP(
     function () {
@@ -294,12 +325,13 @@ useEffect(()=>{
         setLookingForDriverPanel={setLookingForDriverPanel} />
       </div>
 
-      {/* <div
-        ref={waitingForDriverRef}
-        className="fixed w-full  z-10 bottom-0 bg-white p-2 rounded-xl"
-      >
-       <WaitingForDriver setWaitingForDriverPanel={setWaitingForDriverPanel}/>
-      </div> */}
+      <div ref={waitingForDriverRef} className='fixed w-full  z-10 bottom-0  bg-white px-3 py-6 pt-12'>
+                <WaitingForDriver
+                    ride={ride}
+                    setVehicleFound={setVehicleFound}
+                    setWaitingForDriver={setWaitingForDriverPanel}
+                    waitingForDriver={waitingForDriverPanel} />
+            </div>
     </div>
   );
 };

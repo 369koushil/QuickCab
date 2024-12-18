@@ -14,6 +14,7 @@ module.exports.createRide=async(req,res)=>{
 
     try{
         console.log("entered")
+        console.log(req.user)
         const ride=await rideService.createRide({user:req.user._id,pickup,destination,vehicleType});
         // console.log(ride)
         res.status(200).json(ride);
@@ -36,6 +37,7 @@ module.exports.createRide=async(req,res)=>{
 
  
     }catch(err){
+        console.log("erro here")
         console.log(err.message)
         return res.status(404).json({err:"err"})
     }
@@ -59,7 +61,7 @@ module.exports.getFareController = async (req, res) => {
 }
 
 
-module.exports.confirmRide=async(rideId)=>{
+module.exports.confirmRide=async(req,res)=>{
  const{rideId}=req.body;
    try{
     const ride = await rideService.confirmRide({ rideId, captain: req.captain });
@@ -80,7 +82,7 @@ module.exports.confirmRide=async(rideId)=>{
 
 module.exports.startRide=async(req,res)=>{
     
-    const{rideId,otp}=req.query;
+    const{rideId,otp}=req.body;
 
     try{
         const ride=await rideService.startRide({rideId,otp,captain:req.captain})

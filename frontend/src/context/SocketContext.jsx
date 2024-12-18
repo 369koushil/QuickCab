@@ -30,8 +30,8 @@ const SocketProvider = (props) => {
   };
 
   const receiveMsg = (event, callback) => {
-    console.log(event)
-    console.log(callback)
+    // console.log(event)
+    // console.log(callback)
     socket.on(event, callback);
   };
 

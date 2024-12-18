@@ -33,7 +33,7 @@ router.post('/start-ride',authmiddleware.authCaptain,
 
 
 router.post('/end-ride',authmiddleware.authCaptain,
-    query('rideId').isMongoId().withMessage('invalid rider id required'),
+    body('rideId').isMongoId().withMessage('invalid rider id required'),
     rideController.endRide
 )
 

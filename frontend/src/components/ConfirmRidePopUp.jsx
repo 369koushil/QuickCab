@@ -9,20 +9,26 @@ const ConfirmRidePopUp = (props) => {
     const submitHander = async (e) => {
         e.preventDefault()
 
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`, {
-            params: {
+        const response = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/rides/start-ride`, 
+            {
                 rideId: props.ride._id,
                 otp: otp
             },
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
             }
-        })
+        );
+        
 
         if (response.status === 200) {
+            console.log(response.data)
             props.setConfirmRidePopupPanel(false)
             props.setRidePopupPanel(false)
             navigate('/captain-riding', { state: { ride: props.ride } })
+            console.log("ride accepted")
         }
 
 

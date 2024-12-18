@@ -1,16 +1,16 @@
 import React,{useState} from 'react'
 
-const LocationSearchPanel = ({ suggestion,  setPanelOpen,setVehiclePanel, setPickup, setDestination, activeField,setSuggestion }) => {
+const LocationSearchPanel = ({ suggestion,  setPanelOpen,setVehiclePanel, setPickup, setDestination, activeField,setSuggestions }) => {
 const [array,setArray]=useState(suggestion);
 
     const handleSuggestionClick = (suggestion) => {
         console.log(suggestion)
         if (activeField === 'pickup') {
             setPickup(suggestion)
-            setSuggestion([])
+            setSuggestions([])
         } else if (activeField === 'destination') {
             setDestination(suggestion)
-           setSuggestion([])
+            setSuggestions([])
         }
         // setVehiclePanel(true)
         // setPanelOpen(false)

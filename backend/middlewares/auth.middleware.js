@@ -42,19 +42,20 @@ if(blackListed){
 }
 
     if(!token){
-        return res.status(200).json({message:"unauthorized access"});
+        return res.status(200).json({message:"unauthorized access no token"});
     }
 
     try{
         const decoded=jwt.verify(token,process.env.JWT_SECRET);
+        console.log(decoded)
         const captain=await captainModel.findById(decoded._id);
+        console.log(captain)
         req.captain=captain;
         // console.log(user);
        return  next();
     }
     catch(err){
-        return res.status(401).json({message:'unauthorized access'});
+        return res.status(401).json({message:'unauthorized access error'});
     }
 
-    return next;
 }

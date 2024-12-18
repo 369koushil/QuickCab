@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const rideModel=require('../models/ride.model');
-const mapService=require('../services/map.service')
+const mapService=require('../services/map.service');
+
 
  const getFare=async(pickup,destination)=>{
 
@@ -58,7 +59,10 @@ const createRide = async ({
     }
 
     const fare = await getFare(pickup, destination);
+    const destinationcoord=await mapService.getAddressCoordinates(destination)
+    const pickupcoord=await mapService.getAddressCoordinates(pickup)
 
+  
 
 
     const ride = rideModel.create({
@@ -66,7 +70,9 @@ const createRide = async ({
         pickup,
         destination,
         otp: getOtp(6),
-        fare: fare[ vehicleType ]
+        fare: fare[ vehicleType ],
+        pickupcoord,
+        destinationcoord
     })
 
     return ride;
@@ -74,7 +80,7 @@ const createRide = async ({
 
 
 
-module.exports.confirmRide = async ({
+const confirmRide = async ({
     rideId, captain
 }) => {
     if (!rideId) {
@@ -88,6 +94,7 @@ module.exports.confirmRide = async ({
         captain: captain._id
     })
 
+   
     const ride = await rideModel.findOne({
         _id: rideId
     }).populate('user').populate('captain').select('+otp');
@@ -101,8 +108,8 @@ module.exports.confirmRide = async ({
 }
 
 
-module.exports.startRide = async ({ rideId, otp, captain }) => {
-    if (!rideId || !otp) {
+const startRide = async ({ rideId, otp, captain }) => {
+    if (!rideId || !otp) {console.log("Ride id and OTP are required")
         throw new Error('Ride id and OTP are required');
     }
 
@@ -111,29 +118,32 @@ module.exports.startRide = async ({ rideId, otp, captain }) => {
     }).populate('user').populate('captain').select('+otp');
 
     if (!ride) {
+        console.log("Ride not found")
         throw new Error('Ride not found');
     }
 
-    if (ride.status !== 'accepted') {
+    if (ride.status !== 'accepted') {console.log("Ride not accepted")
         throw new Error('Ride not accepted');
     }
 
-    if (ride.otp !== otp) {
+    if (ride.otp !== otp) {console.log("Invalid OTP")
         throw new Error('Invalid OTP');
     }
 
-    await rideModel.findOneAndUpdate({
+   const ridedata= await rideModel.findOneAndUpdate({
         _id: rideId
     }, {
         status: 'ongoing'
     })
+    console.log(ridedata)
+    console.log("accepted ride")
 
     return ride;
 }
 
 
 
-module.exports.endRide = async ({ rideId, captain }) => {
+const endRide = async ({ rideId, captain }) => {
     if (!rideId) {
         throw new Error('Ride id is required');
     }
@@ -163,5 +173,8 @@ module.exports.endRide = async ({ rideId, captain }) => {
 
 module.exports={
     getFare,
-    createRide
+    createRide,
+    confirmRide,
+    startRide,
+    endRide
 }
