@@ -29,8 +29,10 @@ const CaptainHome = () => {
     })
     
 
+    
     useEffect(()=>{
         // console.log(captain)
+        
       sendMsg("join",{userId:captain._id,userType:"captain"})
 
 

@@ -12,13 +12,13 @@ const LiveTracking = () => {
     const { receiveMsg } = useContext(SocketContext);
     const location = useLocation();
 
-    // Initialize state with default coordinates or received data
+   
     const [pickup, setPickup] = useState(location.state?.ride?.pickupcoord || { lat: 0, lng: 0 });
     const [destination, setDestination] = useState(location.state?.ride?.destinationcoord || { lat: 0, lng: 0 });
     const [directionsResponse, setDirectionsResponse] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false); // State to track if Google Maps API is loaded
 
-    // Log location state to check passed data
+   
     useEffect(() => {
         console.log('Location state:', location.state);
     }, [location]);
