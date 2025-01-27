@@ -39,8 +39,7 @@ console.log(response)
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
       <div>
-        <img className='w-20 mb-3' src="https://www.svgrepo.com/show/505031/uber-driver.svg" alt="" />
-
+      <div className='text-3xl flex h-12 cursor-pointer font-semibold '>quickcab</div>
         <form onSubmit={(e) => {
           submitHandler(e)
         }}>

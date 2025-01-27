@@ -101,7 +101,7 @@ receiveMsg('ride-started', ride => {
   },[pickup])
 
   useEffect(()=>{
-     axios.get(`${import.meta.env.VITE_BASE_URL}maps/get-suggestions`,{
+     axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`,{
       headers:{
         Authorization:`bearer ${localStorage.getItem('token')}`
       },
@@ -203,11 +203,7 @@ receiveMsg('ride-started', ride => {
 
   return (
     <div>
-      <img
-        className=" w-20 absolute top-0  "
-        src="https://e7.pngegg.com/pngimages/631/1023/png-clipart-logo-brand-product-design-font-uber-logo-text-logo.png"
-        alt=""
-      />
+      
       <div className="h-screen w-screen ">
         <img
           className="w-full h-full object-cover"
