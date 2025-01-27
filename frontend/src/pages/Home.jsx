@@ -260,7 +260,7 @@ receiveMsg('ride-started', ride => {
          overflow-y-scroll  bg-white ">
         <div className="bg-white flex  px-4 justify-center "> <button onClick={()=>{
 
-          axios.get(`http://localhost:4000/api/v1/rides/get-fare`,{
+          axios.get(`${import.meta.env.VITE_BASE_URL}rides/get-fare`,{
             headers:{
               Authorization:`bearer ${localStorage.getItem('token')}`
             },params:{
