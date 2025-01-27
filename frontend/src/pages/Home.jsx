@@ -83,7 +83,7 @@ receiveMsg('ride-started', ride => {
 
 
   useEffect(()=>{
-     axios.get(`${import.meta.env.VITE_BASE_URL}maps/get-suggestions`,{
+     axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`,{
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`, 
       },
