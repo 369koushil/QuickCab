@@ -62,7 +62,7 @@ const CaptainRiding = (props) => {
 
     const fetchDistanceAndTime = async (current, pickup) => {
         try {
-            const response = await axios.get('/get-distance-time', {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-distance-time`, {
                 params: {
                     origin: `${pickup.lat},${pickup.lng}`,
                     destination: `${current.lat},${current.lng}`,

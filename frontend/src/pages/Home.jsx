@@ -59,7 +59,7 @@ receiveMsg('ride-started', ride => {
   const createRide=()=>{
     
     axios.post(
-      'http://localhost:4000/api/v1/rides/create',
+      `${import.meta.env.VITE_BASE_URL}/rides/create`,
       {
         userId: user._id,
         pickup: pickup,
@@ -83,7 +83,7 @@ receiveMsg('ride-started', ride => {
 
 
   useEffect(()=>{
-     axios.get(`http://localhost:4000/api/v1/maps/get-suggestions`,{
+     axios.get(`${import.meta.env.VITE_BASE_URL}maps/get-suggestions`,{
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`, 
       },
@@ -101,7 +101,7 @@ receiveMsg('ride-started', ride => {
   },[pickup])
 
   useEffect(()=>{
-     axios.get(`http://localhost:4000/api/v1/maps/get-suggestions`,{
+     axios.get(`${import.meta.env.VITE_BASE_URL}maps/get-suggestions`,{
       headers:{
         Authorization:`bearer ${localStorage.getItem('token')}`
       },

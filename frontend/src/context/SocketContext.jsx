@@ -2,7 +2,7 @@ import { createContext, useEffect } from "react";
 import { data } from "react-router-dom";
 import { io } from "socket.io-client";
 
-const baseurl = "http://localhost:4000";
+const baseurl = import.meta.env.VITE_SOCKET_URL;
 
 const socket = io(baseurl);
 export const SocketContext = createContext();
